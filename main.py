@@ -16,7 +16,8 @@ def folder(hash):
     name = random.randrange(10000, 100000)
     os.mkdir(str(name))
     txt = open(str(name), 'w')
-    txt.write(hash)
+    txt.write(hash.text)
+    txt.close()
     return str(name)
 
 
