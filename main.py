@@ -12,6 +12,7 @@ def welcome(message):
     bot.send_message(message.chat.id, 'Привет!')
 
 
+@bot.message_handler(content_types=['text'])
 def folder(hash):
     name = random.randrange(10000, 100000)
     os.mkdir(str(name))
@@ -21,6 +22,8 @@ def folder(hash):
     return str(name)
 
 
-@bot.message_handler(content_types=['text'])
 def answer(message):
     bot.send_message(message.chat.id, folder(message.text))
+
+
+bot.polling()
