@@ -1,29 +1,26 @@
 import telebot
-import config
-import os
 import random
+import os
 
-
-bot = telebot.TeleBot(config.TOKEN)
+bot = telebot.TeleBot('TOKEN')
 
 
 @bot.message_handler(commands=['start'])
-def welcome(message):
+def start_message(message):
     bot.send_message(message.chat.id, 'Привет!')
 
 
 @bot.message_handler(content_types=['text'])
-def folder(hash):
+def folder(message):
+    path = 'E:\file\file2\file3'
     name = random.randrange(10000, 100000)
-    os.mkdir(str(name))
-    txt = open(str(name), 'w')
-    txt.write(hash.text)
-    txt.close()
-    return str(name)
-
-
-def answer(message):
-    bot.send_message(message.chat.id, folder(message.text))
+    tname = os.path.join(path, str(name))
+    os.mkdir(tname)
+    tname2 = os.path.join(tname, 'file.txt')
+    file = open(tname2, 'w')
+    file.write(message.text)
+    file.close()
+    bot.send_message(message.chat.id, str(name))
 
 
 bot.polling()
